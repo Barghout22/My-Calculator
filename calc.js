@@ -20,23 +20,22 @@ function divide(firstNum,secondNum)
 
 function operate(operator,firstNum,secondNum)
 {
-switch (operator)
-{
-case'+':
-add(firstNum,secondNum);
-break;
-
-case'-':
-subtract(firstNum,secondNum);
-break;
-
-case'*':
-multiply(firstNum,secondNum);
-break;
-case'/':
-divide(firstNum,secondNum);
-break;
-}
-
-
+  switch (operator)
+  {
+    case'+':
+    return add(firstNum,secondNum);
+    break;
+    
+    case'-':
+    return subtract(firstNum,secondNum);
+    break;
+    
+    case'*':
+    return  multiply(firstNum,secondNum);
+    break;
+    
+    case'/':
+    return divide(firstNum,secondNum);
+    break;
+  }
 }
