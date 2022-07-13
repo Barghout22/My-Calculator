@@ -80,6 +80,12 @@ function sortEnteredButtons(button)
   
   else if (button.classList.value==='operations')
     {
+      if(button.getAttribute('id')==='delete')
+      {
+
+        firstLine.textContent=firstLine.textContent.slice(0,-1);
+      }
+      else{
      if((!operation)&&(button.getAttribute('id')!=='=')&&(button.getAttribute('id')!=='clear'))
        {
         if(calcResult!='')
@@ -148,6 +154,7 @@ function sortEnteredButtons(button)
       clearAllValues();
      }
     }
+  }
 }
 
 
