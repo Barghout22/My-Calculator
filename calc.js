@@ -1,5 +1,6 @@
 const display=document.querySelector('.display');
 let firstLine=document.createElement('p');
+let secondLine=document.createElement('p');
 let displayValue='';
 let secondDisplayValue='';
 let operation;
@@ -55,6 +56,7 @@ function sortEnteredButtons(button)
     operation='';
     firstLine.textContent='';
     calcResult='';
+    display.removeChild(secondLine);
   }
   if(button.classList.value==='numbers')
   {
@@ -80,8 +82,8 @@ function sortEnteredButtons(button)
   else if (((button.getAttribute('id'))==='=')&&((displayValue)&&(operation)&&(secondDisplayValue)))
   {
     calcResult=operate(operation,Number(displayValue),Number(secondDisplayValue));
-    firstLine.textContent+='='+calcResult;
-
+    secondLine.textContent=calcResult;
+    display.appendChild(secondLine);
   }  
   else if((button.getAttribute('id'))==='clear')
   {
@@ -94,6 +96,8 @@ function sortEnteredButtons(button)
 
 
 }
+
+
 
 
 const buttons=document.querySelectorAll('button');
