@@ -49,15 +49,7 @@ function operate(operator,firstNum,secondNum)
 
 function sortEnteredButtons(button)
 {
-  if (calcResult!=='')
-  {
-    displayValue='';
-    secondDisplayValue='';
-    operation='';
-    firstLine.textContent='';
-    calcResult='';
-    display.removeChild(secondLine);
-  }
+
   if(button.classList.value==='numbers')
   {
     if(!operation)
@@ -69,21 +61,36 @@ function sortEnteredButtons(button)
     else
     {
       secondDisplayValue+=button.getAttribute('id');
-      firstLine.textContent+=button.getAttribute('id');
+      secondLine.textContent+=button.getAttribute('id');
     }
   }
   else if(button.classList.value==='operations')
   {
   if(((button.getAttribute('id'))!=='=')&&((button.getAttribute('id'))!=='clear'))
   {
-  operation=button.getAttribute('id');
+  if(!operation)
+  {
+    operation=button.getAttribute('id');
   firstLine.textContent+=operation;
+  }
+  else if  ((displayValue)&&(operation)&&(secondDisplayValue))
+  {
+    calcResult=operate(operation,Number(displayValue),Number(secondDisplayValue));
+    displayValue=calcResult;
+    console.log(displayValue);
+    firstLine.textContent=calcResult;
+    operation=button.getAttribute('id');
+    firstLine.textContent+=operation;
+    secondLine.textContent='';
+    secondDisplayValue='';
+  }
+  
   }
   else if (((button.getAttribute('id'))==='=')&&((displayValue)&&(operation)&&(secondDisplayValue)))
   {
     calcResult=operate(operation,Number(displayValue),Number(secondDisplayValue));
+    firstLine.textContent+=secondDisplayValue;
     secondLine.textContent=calcResult;
-    display.appendChild(secondLine);
   }  
   else if((button.getAttribute('id'))==='clear')
   {
@@ -91,6 +98,7 @@ function sortEnteredButtons(button)
     secondDisplayValue='';
     operation='';
     firstLine.textContent='';
+    secondLine.textContent='';
   }
  }
 
@@ -104,3 +112,4 @@ const buttons=document.querySelectorAll('button');
 
 buttons.forEach(button=>button.addEventListener('click',()=>sortEnteredButtons(button)));
 display.appendChild(firstLine);
+display.appendChild(secondLine);
