@@ -1,6 +1,5 @@
 const display=document.querySelector('.display');
 const firstLine=document.createElement('p');
-//const secondLine=document.createElement('p');
 let firstdisplayValue='';
 let secondDisplayValue='';
 let operation;
@@ -30,19 +29,19 @@ function operate(operator,firstNum,secondNum)
   switch (operator)
   {
     case'+':
-    return add(firstNum,secondNum);
+    return Math.round((add(firstNum,secondNum))*1000)/1000;
     break;
     
     case'-':
-    return subtract(firstNum,secondNum);
+    return Math.round((subtract(firstNum,secondNum))*1000)/1000;
     break;
     
     case'x':
-    return  multiply(firstNum,secondNum);
+    return  Math.round((multiply(firstNum,secondNum))*1000)/1000;
     break;
     
     case'/':
-    return divide(firstNum,secondNum);
+    return Math.round((divide(firstNum,secondNum))*1000)/1000;
     break;
   }
 }
@@ -87,6 +86,7 @@ function sortEnteredButtons(button)
         {
           firstdisplayValue=calcResult;
           firstLine.textContent=firstdisplayValue;
+          secondDisplayValue='';
           calcResult='';
         }
         operation=button.getAttribute('id');
@@ -98,15 +98,29 @@ function sortEnteredButtons(button)
           if((firstdisplayValue!=='')&&(secondDisplayValue!==''))
           {
             firstdisplayValue=operate(operation,Number(firstdisplayValue),Number(secondDisplayValue));
+            if(firstdisplayValue==Infinity)
+            {
+              firstLine.textContent='you can\'t divide by zero';
+              operation=undefined;
+              firstdisplayValue='';
+              secondDisplayValue='';
+              calcResult=NaN;
+              
+            }
+            else
+            {
             firstLine.textContent=firstdisplayValue;
             operation=button.getAttribute('id');
             firstLine.textContent+=operation;
             secondDisplayValue='';
+            }
+          
           }
         
         else
         {
           operation=button.getAttribute('id');
+          firstLine.textContent=firstdisplayValue+operation;
         }
         
       }
@@ -115,7 +129,13 @@ function sortEnteredButtons(button)
           if((operation)&&(firstdisplayValue!=='')&&(secondDisplayValue!==''))
           {
             calcResult=operate(operation,Number(firstdisplayValue),Number(secondDisplayValue));
-            firstLine.textContent =firstdisplayValue+operation+secondDisplayValue +button.getAttribute('id') + calcResult;
+            if(calcResult==Infinity)
+            {
+              firstLine.textContent='you can\'t divide by zero';
+            }
+            else{
+              firstLine.textContent =firstdisplayValue+operation+secondDisplayValue +button.getAttribute('id') + calcResult;
+            }
             operation=undefined;
           }
           else
@@ -129,83 +149,6 @@ function sortEnteredButtons(button)
      }
     }
 }
-
-
-
-
-/*{
-
-  if(button.classList.value==='numbers')
-  {
-    if(!operation)
-    {
-      if(calcResult!=='')
-      {
-        firstLine.textContent=calcResult;
-        secondLine.textContent='';
-        displayValue='';
-        secondDisplayValue='';
-        calcResult='';
-        displayValue+=button.getAttribute('id');
-        secondLine.textContent+=button.getAttribute('id');
-      }
-      else{
-      displayValue+=button.getAttribute('id');
-      firstLine.textContent+=button.getAttribute('id');
-      secondDisplayValue='';
-      }
-    }
-    else
-    {
-      secondDisplayValue+=button.getAttribute('id');
-      secondLine.textContent+=button.getAttribute('id');
-    }
-  }
-  else if(button.classList.value==='operations')
-  {
-  if(((button.getAttribute('id'))!=='=')&&((button.getAttribute('id'))!=='clear'))
-  {
-  if((!operation)||(operation==='=')||(operation==='clear'))
-  {
-    operation=button.getAttribute('id');
-    firstLine.textContent='';
-    firstLine.textContent+=displayValue+operation;
-    secondLine.textContent='';
-  }
-  else if  ((displayValue!=='')&&(operation)&&(secondDisplayValue!==''))
-  {
-    calcResult=operate(operation,Number(displayValue),Number(secondDisplayValue));
-    displayValue=calcResult;
-    console.log(displayValue);
-    firstLine.textContent=calcResult;
-    operation=button.getAttribute('id');
-    firstLine.textContent+=operation;
-    secondLine.textContent='';
-    secondDisplayValue='';
-  }
-  
-  }
-  else if (((button.getAttribute('id'))==='=')&&((displayValue)&&(operation)&&(secondDisplayValue)))
-  {
-    calcResult=operate(operation,Number(displayValue),Number(secondDisplayValue));
-    firstLine.textContent+=secondDisplayValue;
-    secondLine.textContent=calcResult;
-    operation='';
-  }  
-  else if((button.getAttribute('id'))==='clear')
-  {
-    displayValue='';
-    secondDisplayValue='';
-    operation='';
-    firstLine.textContent='';
-    secondLine.textContent='';
-  }
- }
-
-
-}
-*/
-
 
 
 const buttons=document.querySelectorAll('button');
