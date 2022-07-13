@@ -49,14 +49,14 @@ button
     gap: 10px;
     padding-left: 10px;
 }
-.operations
+div.operations
 {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
     width: 150px;
 }
-.numbers
+div.numbers
 {
     display: flex;
     gap: 5px;
