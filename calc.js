@@ -1,7 +1,7 @@
 const display=document.querySelector('.display');
-let firstLine=document.createElement('p');
-let secondLine=document.createElement('p');
-let displayValue='';
+const firstLine=document.createElement('p');
+//const secondLine=document.createElement('p');
+let firstdisplayValue='';
 let secondDisplayValue='';
 let operation;
 let calcResult='';
@@ -47,16 +47,113 @@ function operate(operator,firstNum,secondNum)
   }
 }
 
+
+
+function clearAllValues()
+{
+  operation=undefined;
+  firstLine.textContent='';
+  firstdisplayValue='';
+  secondDisplayValue='';
+  calcResult='';
+}
+
+
 function sortEnteredButtons(button)
 {
+  if(button.classList.value==='numbers')
+    {
+    if(!operation)
+    {
+      if(calcResult!=='')
+      {
+        clearAllValues();
+      }
+
+      firstdisplayValue+=button.getAttribute('id');
+    }
+    else
+    {
+      secondDisplayValue+=button.getAttribute('id');
+    }
+    firstLine.textContent+=button.getAttribute('id');
+    }
+  
+  else if (button.classList.value==='operations')
+    {
+     if((!operation)&&(button.getAttribute('id')!=='=')&&(button.getAttribute('id')!=='clear'))
+       {
+        if(calcResult!='')
+        {
+          firstdisplayValue=calcResult;
+          firstLine.textContent=firstdisplayValue;
+          calcResult='';
+        }
+        operation=button.getAttribute('id');
+        firstLine.textContent+=button.getAttribute('id');
+       }  
+        else if((operation)&&(button.getAttribute('id')!=='=')&&(button.getAttribute!=='clear'))
+       {
+      
+          if((firstdisplayValue!=='')&&(secondDisplayValue!==''))
+          {
+            firstdisplayValue=operate(operation,Number(firstdisplayValue),Number(secondDisplayValue));
+            firstLine.textContent=firstdisplayValue;
+            operation=button.getAttribute('id');
+            firstLine.textContent+=operation;
+            secondDisplayValue='';
+          }
+        
+        else
+        {
+          operation=button.getAttribute('id');
+        }
+        
+      }
+     else if(button.getAttribute('id')==='=')
+       {
+          if((operation)&&(firstdisplayValue!=='')&&(secondDisplayValue!==''))
+          {
+            calcResult=operate(operation,Number(firstdisplayValue),Number(secondDisplayValue));
+            firstLine.textContent =firstdisplayValue+operation+secondDisplayValue +button.getAttribute('id') + calcResult;
+            operation=undefined;
+          }
+          else
+          {
+            clearAllValues();
+          }
+       }
+     else if( button.getAttribute('id')==='clear')
+     {
+      clearAllValues();
+     }
+    }
+}
+
+
+
+
+/*{
 
   if(button.classList.value==='numbers')
   {
     if(!operation)
     {
+      if(calcResult!=='')
+      {
+        firstLine.textContent=calcResult;
+        secondLine.textContent='';
+        displayValue='';
+        secondDisplayValue='';
+        calcResult='';
+        displayValue+=button.getAttribute('id');
+        secondLine.textContent+=button.getAttribute('id');
+      }
+      else{
       displayValue+=button.getAttribute('id');
       firstLine.textContent+=button.getAttribute('id');
-      
+      secondDisplayValue='';
+      }
     }
     else
     {
@@ -68,12 +165,14 @@ function sortEnteredButtons(button)
   {
   if(((button.getAttribute('id'))!=='=')&&((button.getAttribute('id'))!=='clear'))
   {
-  if(!operation)
+  if((!operation)||(operation==='=')||(operation==='clear'))
   {
     operation=button.getAttribute('id');
-  firstLine.textContent+=operation;
+    firstLine.textContent='';
+    firstLine.textContent+=displayValue+operation;
+    secondLine.textContent='';
   }
-  else if  ((displayValue)&&(operation)&&(secondDisplayValue))
+  else if  ((displayValue!=='')&&(operation)&&(secondDisplayValue!==''))
   {
     calcResult=operate(operation,Number(displayValue),Number(secondDisplayValue));
     displayValue=calcResult;
@@ -91,6 +190,7 @@ function sortEnteredButtons(button)
     calcResult=operate(operation,Number(displayValue),Number(secondDisplayValue));
     firstLine.textContent+=secondDisplayValue;
     secondLine.textContent=calcResult;
+    operation='';
   }  
   else if((button.getAttribute('id'))==='clear')
   {
@@ -104,7 +204,7 @@ function sortEnteredButtons(button)
 
 
 }
-
+*/
 
 
 
@@ -112,4 +212,4 @@ const buttons=document.querySelectorAll('button');
 
 buttons.forEach(button=>button.addEventListener('click',()=>sortEnteredButtons(button)));
 display.appendChild(firstLine);
-display.appendChild(secondLine);
+//display.appendChild(secondLine);
