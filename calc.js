@@ -57,9 +57,6 @@ function clearAllValues()
   calcResult='';
 }
 
-function isInt(n) {
-  return n % 1 === 0;
-}
 
 function sortEnteredButtons(button)
 {
@@ -73,7 +70,7 @@ function sortEnteredButtons(button)
       }
       if(button.getAttribute('id')==='.')
       {
-        if(!isInt(firstdisplayValue))
+        if(firstdisplayValue.includes('.'))
         {
           return;
         }
@@ -85,7 +82,7 @@ function sortEnteredButtons(button)
     {
       if(button.getAttribute('id')==='.')
       {
-        if(!isInt(secondDisplayValue))
+        if(secondDisplayValue.includes('.'))
         {
           return;
         }
