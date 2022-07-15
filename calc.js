@@ -57,6 +57,9 @@ function clearAllValues()
   calcResult='';
 }
 
+function isInt(n) {
+  return n % 1 === 0;
+}
 
 function sortEnteredButtons(button)
 {
@@ -68,11 +71,25 @@ function sortEnteredButtons(button)
       {
         clearAllValues();
       }
+      if(button.getAttribute('id')==='.')
+      {
+        if(!isInt(firstdisplayValue))
+        {
+          return;
+        }
 
+      }
       firstdisplayValue+=button.getAttribute('id');
     }
     else
     {
+      if(button.getAttribute('id')==='.')
+      {
+        if(!isInt(secondDisplayValue))
+        {
+          return;
+        }
+      }
       secondDisplayValue+=button.getAttribute('id');
     }
     firstLine.textContent+=button.getAttribute('id');
@@ -162,4 +179,3 @@ const buttons=document.querySelectorAll('button');
 
 buttons.forEach(button=>button.addEventListener('click',()=>sortEnteredButtons(button)));
 display.appendChild(firstLine);
-//display.appendChild(secondLine);
