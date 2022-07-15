@@ -19,7 +19,7 @@ p
     flex-direction: column;
     align-items: center;
     width: 340px;
-    height: 480px;
+    height: 450px;
     background-color: aquamarine;
     padding: 20px;
     margin: 10px;
@@ -45,7 +45,7 @@ button
     color: white;
     border: 0px;
     width: 60px;
-    height: 60px;
+    height: 50px;
     margin: 0px;
     font-size: 25px;
     border-style: solid;
