@@ -96,8 +96,26 @@ function sortEnteredButtons(button)
     {
       if(button.getAttribute('id')==='delete')
       {
-
-        firstLine.textContent=firstLine.textContent.slice(0,-1);
+        if(calcResult!=='')
+        {
+          clearAllValues();
+        }
+        else if (secondDisplayValue!=='')
+        {
+          secondDisplayValue=secondDisplayValue.slice(0,-1);
+          firstLine.textContent=firstLine.textContent.slice(0,-1);
+        }
+        else if (operation)
+        {
+          operation=undefined;
+          firstLine.textContent=firstLine.textContent.slice(0,-1);
+        }
+        else if(firstdisplayValue!=='')
+        {
+          firstdisplayValue=firstdisplayValue.slice(0,-1);
+          firstLine.textContent=firstLine.textContent.slice(0,-1);
+        }
+        
       }
       else{
      if((!operation)&&(button.getAttribute('id')!=='=')&&(button.getAttribute('id')!=='clear'))
