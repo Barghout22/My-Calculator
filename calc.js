@@ -189,8 +189,47 @@ function sortEnteredButtons(button)
   }
 }
 
+function sortKeypadBttns(key)
+{
+ let keypadBttn=document.createElement('div');
+  if(((key=>0)&&(key<=9))||(key==='.'))
+{
+  keypadBttn.setAttribute('id',key);
+  keypadBttn.classList.add('numbers');
+}
+else
+{
+  if((key==='/')||(key==='-')||(key==='+'))
+  {
+    keypadBttn.setAttribute('id',key);
+  }
+  else
+  {
+   if(key==='Backspace')
+   { 
+    keypadBttn.setAttribute('id','delete');
+   }
+   else if (key==='*')
+   {
+    keypadBttn.setAttribute('id','x');
+   }
+   else if(key==='Enter')
+   {
+    keypadBttn.setAttribute('id','=');
+   }
+  }
+
+  keypadBttn.classList.add('operations');
+}
+
+sortEnteredButtons(keypadBttn);
+}
+
 
 const buttons=document.querySelectorAll('button');
 
 buttons.forEach(button=>button.addEventListener('click',()=>sortEnteredButtons(button)));
 display.appendChild(firstLine);
+window.addEventListener('keydown',function(e){
+  sortKeypadBttns(e['key']);
+});
