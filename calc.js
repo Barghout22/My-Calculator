@@ -217,6 +217,10 @@ else
    {
     keypadBttn.setAttribute('id','=');
    }
+   else
+   {
+    return;
+   }
   }
 
   keypadBttn.classList.add('operations');
